@@ -1,0 +1,693 @@
+{
+  "entryPoint": "markdown-editor.tsx",
+  "directDependencies": {
+    "platejs": {
+      "importPath": "platejs",
+      "imports": ["Value"],
+      "required": true
+    },
+    "platejs-react": {
+      "importPath": "platejs/react",
+      "imports": ["Plate", "usePlateEditor"],
+      "required": true
+    },
+    "EditorKit": {
+      "importPath": "./plate-playground-template/src/components/editor/editor-kit",
+      "imports": ["EditorKit"],
+      "required": true,
+      "dependencies": "see editor-kit-plugins"
+    },
+    "editor-ui": {
+      "importPath": "./plate-playground-template/src/components/ui/editor",
+      "imports": ["Editor", "EditorContainer"],
+      "required": true,
+      "dependencies": {
+        "class-variance-authority": {
+          "importPath": "class-variance-authority",
+          "imports": ["cva", "VariantProps"],
+          "required": true
+        },
+        "platejs-react": {
+          "importPath": "platejs/react",
+          "imports": ["PlateContainer", "PlateContent", "PlateView", "PlateContentProps", "PlateViewProps"],
+          "required": true
+        },
+        "react": {
+          "importPath": "react",
+          "imports": ["React"],
+          "required": true
+        },
+        "cn-util": {
+          "importPath": "@/lib/utils",
+          "imports": ["cn"],
+          "required": true,
+          "dependencies": {
+            "clsx": {
+              "importPath": "clsx",
+              "imports": ["clsx"],
+              "required": true
+            },
+            "tailwind-merge": {
+              "importPath": "tailwind-merge",
+              "imports": ["twMerge"],
+              "required": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "editor-kit-plugins": {
+    "description": "Dependencies imported by EditorKit plugin array",
+    "plugins": {
+      "CopilotKit": {
+        "source": "plugins/copilot-kit.tsx",
+        "dependencies": {
+          "@platejs/ai": {
+            "importPath": "@platejs/ai/react",
+            "imports": ["CopilotPlugin"],
+            "required": true
+          },
+          "@platejs/markdown": {
+            "importPath": "@platejs/markdown",
+            "imports": ["serializeMd", "stripMarkdown"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["TElement"],
+            "required": true
+          },
+          "@faker-js/faker": {
+            "importPath": "@faker-js/faker",
+            "imports": ["faker"],
+            "required": true
+          }
+        }
+      },
+      "AIKit": {
+        "source": "plugins/ai-kit.tsx",
+        "dependencies": {
+          "@platejs/ai": {
+            "importPath": "@platejs/ai",
+            "imports": ["BaseAIPlugin", "withAIBatch"],
+            "required": true
+          },
+          "@platejs/ai-react": {
+            "importPath": "@platejs/ai/react",
+            "imports": ["AIChatPlugin", "AIPlugin", "applyAISuggestions", "getInsertPreviewStart", "streamInsertChunk", "useChatChunk"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["ElementApi", "getPluginType", "KEYS", "PathApi"],
+            "required": true
+          },
+          "platejs-react": {
+            "importPath": "platejs/react",
+            "imports": ["usePluginOption"],
+            "required": true
+          },
+          "lodash": {
+            "importPath": "lodash/cloneDeep.js",
+            "imports": ["cloneDeep"],
+            "required": true
+          }
+        }
+      },
+      "BasicBlocksKit": {
+        "source": "plugins/basic-blocks-kit.tsx",
+        "dependencies": {
+          "@platejs/basic-nodes": {
+            "importPath": "@platejs/basic-nodes/react",
+            "imports": ["BlockquotePlugin", "H1Plugin", "H2Plugin", "H3Plugin", "H4Plugin", "H5Plugin", "H6Plugin", "HorizontalRulePlugin"],
+            "required": true
+          },
+          "platejs-react": {
+            "importPath": "platejs/react",
+            "imports": ["ParagraphPlugin"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["KEYS"],
+            "required": true
+          }
+        }
+      },
+      "CodeBlockKit": {
+        "source": "plugins/code-block-kit.tsx",
+        "dependencies": {
+          "@platejs/code-block": {
+            "importPath": "@platejs/code-block/react",
+            "imports": ["CodeBlockPlugin", "CodeLinePlugin", "CodeSyntaxPlugin"],
+            "required": true
+          },
+          "lowlight": {
+            "importPath": "lowlight",
+            "imports": ["all", "createLowlight"],
+            "required": true
+          }
+        }
+      },
+      "TableKit": {
+        "source": "plugins/table-kit.tsx",
+        "dependencies": {
+          "@platejs/table": {
+            "importPath": "@platejs/table/react",
+            "imports": ["TableCellHeaderPlugin", "TableCellPlugin", "TablePlugin", "TableRowPlugin"],
+            "required": true
+          }
+        }
+      },
+      "ToggleKit": {
+        "source": "plugins/toggle-kit.tsx",
+        "dependencies": {
+          "@platejs/toggle": {
+            "importPath": "@platejs/toggle/react",
+            "imports": ["TogglePlugin"],
+            "required": true
+          }
+        }
+      },
+      "TocKit": {
+        "source": "plugins/toc-kit.tsx",
+        "dependencies": {
+          "@platejs/toc": {
+            "importPath": "@platejs/toc/react",
+            "imports": ["TocPlugin"],
+            "required": true
+          }
+        }
+      },
+      "MediaKit": {
+        "source": "plugins/media-kit.tsx",
+        "dependencies": {
+          "@platejs/media": {
+            "importPath": "@platejs/media/react",
+            "imports": ["AudioPlugin", "FilePlugin", "ImagePlugin", "MediaEmbedPlugin", "PlaceholderPlugin", "VideoPlugin"],
+            "required": true
+          },
+          "@platejs/caption": {
+            "importPath": "@platejs/caption/react",
+            "imports": ["CaptionPlugin"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["KEYS"],
+            "required": true
+          }
+        }
+      },
+      "CalloutKit": {
+        "source": "plugins/callout-kit.tsx",
+        "dependencies": {
+          "@platejs/callout": {
+            "importPath": "@platejs/callout/react",
+            "imports": ["CalloutPlugin"],
+            "required": true
+          }
+        }
+      },
+      "ColumnKit": {
+        "source": "plugins/column-kit.tsx",
+        "dependencies": {
+          "@platejs/layout": {
+            "importPath": "@platejs/layout/react",
+            "imports": ["ColumnItemPlugin", "ColumnPlugin"],
+            "required": true
+          }
+        }
+      },
+      "MathKit": {
+        "source": "plugins/math-kit.tsx",
+        "dependencies": {
+          "@platejs/math": {
+            "importPath": "@platejs/math/react",
+            "imports": ["EquationPlugin", "InlineEquationPlugin"],
+            "required": true
+          }
+        }
+      },
+      "DateKit": {
+        "source": "plugins/date-kit.tsx",
+        "dependencies": {
+          "@platejs/date": {
+            "importPath": "@platejs/date/react",
+            "imports": ["DatePlugin"],
+            "required": true
+          }
+        }
+      },
+      "LinkKit": {
+        "source": "plugins/link-kit.tsx",
+        "dependencies": {
+          "@platejs/link": {
+            "importPath": "@platejs/link/react",
+            "imports": ["LinkPlugin"],
+            "required": true
+          }
+        }
+      },
+      "MentionKit": {
+        "source": "plugins/mention-kit.tsx",
+        "dependencies": {
+          "@platejs/mention": {
+            "importPath": "@platejs/mention/react",
+            "imports": ["MentionInputPlugin", "MentionPlugin"],
+            "required": true
+          }
+        }
+      },
+      "BasicMarksKit": {
+        "source": "plugins/basic-marks-kit.tsx",
+        "dependencies": {
+          "@platejs/basic-nodes": {
+            "importPath": "@platejs/basic-nodes/react",
+            "imports": ["BoldPlugin", "CodePlugin", "HighlightPlugin", "ItalicPlugin", "KbdPlugin", "StrikethroughPlugin", "SubscriptPlugin", "SuperscriptPlugin", "UnderlinePlugin"],
+            "required": true
+          }
+        }
+      },
+      "FontKit": {
+        "source": "plugins/font-kit.tsx",
+        "dependencies": {
+          "@platejs/basic-styles": {
+            "importPath": "@platejs/basic-styles/react",
+            "imports": ["FontBackgroundColorPlugin", "FontColorPlugin", "FontFamilyPlugin", "FontSizePlugin"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["KEYS"],
+            "required": true
+          },
+          "platejs-react": {
+            "importPath": "platejs/react",
+            "imports": ["PlatePluginConfig"],
+            "required": true
+          }
+        }
+      },
+      "ListKit": {
+        "source": "plugins/list-kit.tsx",
+        "dependencies": {
+          "@platejs/list": {
+            "importPath": "@platejs/list/react",
+            "imports": ["ListPlugin"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["KEYS"],
+            "required": true
+          }
+        }
+      },
+      "AlignKit": {
+        "source": "plugins/align-kit.tsx",
+        "dependencies": {
+          "@platejs/basic-styles": {
+            "importPath": "@platejs/basic-styles/react",
+            "imports": ["TextAlignPlugin"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["KEYS"],
+            "required": true
+          }
+        }
+      },
+      "LineHeightKit": {
+        "source": "plugins/line-height-kit.tsx",
+        "dependencies": {
+          "@platejs/basic-styles": {
+            "importPath": "@platejs/basic-styles/react",
+            "imports": ["LineHeightPlugin"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["KEYS"],
+            "required": true
+          }
+        }
+      },
+      "DiscussionKit": {
+        "source": "plugins/discussion-kit.tsx",
+        "dependencies": {
+          "platejs-react": {
+            "importPath": "platejs/react",
+            "imports": ["createPlatePlugin"],
+            "required": true
+          }
+        }
+      },
+      "CommentKit": {
+        "source": "plugins/comment-kit.tsx",
+        "dependencies": {
+          "@platejs/comment": {
+            "importPath": "@platejs/comment",
+            "imports": ["BaseCommentPlugin", "BaseCommentConfig", "getDraftCommentKey"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["ExtendConfig", "Path", "isSlateString"],
+            "required": true
+          },
+          "platejs-react": {
+            "importPath": "platejs/react",
+            "imports": ["toTPlatePlugin"],
+            "required": true
+          }
+        }
+      },
+      "SuggestionKit": {
+        "source": "plugins/suggestion-kit.tsx",
+        "dependencies": {
+          "@platejs/suggestion": {
+            "importPath": "@platejs/suggestion",
+            "imports": ["BaseSuggestionConfig", "BaseSuggestionPlugin"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["ExtendConfig", "Path", "isSlateEditor", "isSlateString"],
+            "required": true
+          },
+          "platejs-react": {
+            "importPath": "platejs/react",
+            "imports": ["toTPlatePlugin"],
+            "required": true
+          }
+        }
+      },
+      "SlashKit": {
+        "source": "plugins/slash-kit.tsx",
+        "dependencies": {
+          "@platejs/slash-command": {
+            "importPath": "@platejs/slash-command/react",
+            "imports": ["SlashInputPlugin", "SlashPlugin"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["KEYS", "SlateEditor"],
+            "required": true
+          }
+        }
+      },
+      "AutoformatKit": {
+        "source": "plugins/autoformat-kit.tsx",
+        "dependencies": {
+          "@platejs/autoformat": {
+            "importPath": "@platejs/autoformat",
+            "imports": ["AutoformatPlugin", "autoformatArrow", "autoformatLegal", "autoformatLegalHtml", "autoformatMath", "autoformatPunctuation", "autoformatSmartQuotes", "AutoformatRule"],
+            "required": true
+          },
+          "@platejs/code-block": {
+            "importPath": "@platejs/code-block",
+            "imports": ["insertEmptyCodeBlock"],
+            "required": true
+          },
+          "@platejs/list": {
+            "importPath": "@platejs/list",
+            "imports": ["toggleList"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["KEYS"],
+            "required": true
+          }
+        }
+      },
+      "CursorOverlayKit": {
+        "source": "plugins/cursor-overlay-kit.tsx",
+        "dependencies": {
+          "@platejs/selection": {
+            "importPath": "@platejs/selection/react",
+            "imports": ["CursorOverlayPlugin"],
+            "required": true
+          }
+        }
+      },
+      "BlockMenuKit": {
+        "source": "plugins/block-menu-kit.tsx",
+        "dependencies": {
+          "@platejs/selection": {
+            "importPath": "@platejs/selection/react",
+            "imports": ["BlockMenuPlugin"],
+            "required": true
+          }
+        }
+      },
+      "BlockSelectionKit": {
+        "source": "plugins/block-selection-kit.tsx",
+        "dependencies": {
+          "@platejs/selection": {
+            "importPath": "@platejs/selection/react",
+            "imports": ["BlockSelectionPlugin"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["getPluginTypes", "isHotkey", "KEYS"],
+            "required": true
+          }
+        }
+      },
+      "DndKit": {
+        "source": "plugins/dnd-kit.tsx",
+        "dependencies": {
+          "@platejs/dnd": {
+            "importPath": "@platejs/dnd",
+            "imports": ["DndPlugin"],
+            "required": true
+          },
+          "@platejs/media": {
+            "importPath": "@platejs/media/react",
+            "imports": ["PlaceholderPlugin"],
+            "required": true
+          },
+          "react-dnd": {
+            "importPath": "react-dnd",
+            "imports": ["DndProvider"],
+            "required": true
+          },
+          "react-dnd-html5-backend": {
+            "importPath": "react-dnd-html5-backend",
+            "imports": ["HTML5Backend"],
+            "required": true
+          }
+        }
+      },
+      "EmojiKit": {
+        "source": "plugins/emoji-kit.tsx",
+        "dependencies": {
+          "@emoji-mart/data": {
+            "importPath": "@emoji-mart/data",
+            "imports": ["emojiMartData"],
+            "required": true
+          },
+          "@platejs/emoji": {
+            "importPath": "@platejs/emoji/react",
+            "imports": ["EmojiInputPlugin", "EmojiPlugin"],
+            "required": true
+          }
+        }
+      },
+      "ExitBreakKit": {
+        "source": "plugins/exit-break-kit.tsx",
+        "dependencies": {
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["ExitBreakPlugin"],
+            "required": true
+          }
+        }
+      },
+      "DocxKit": {
+        "source": "plugins/docx-kit.tsx",
+        "dependencies": {
+          "@platejs/docx": {
+            "importPath": "@platejs/docx",
+            "imports": ["DocxPlugin"],
+            "required": true
+          },
+          "@platejs/juice": {
+            "importPath": "@platejs/juice",
+            "imports": ["JuicePlugin"],
+            "required": true
+          }
+        }
+      },
+      "MarkdownKit": {
+        "source": "plugins/markdown-kit.tsx",
+        "dependencies": {
+          "@platejs/markdown": {
+            "importPath": "@platejs/markdown",
+            "imports": ["MarkdownPlugin", "remarkMdx", "remarkMention"],
+            "required": true
+          },
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["KEYS"],
+            "required": true
+          },
+          "remark-gfm": {
+            "importPath": "remark-gfm",
+            "imports": ["remarkGfm"],
+            "required": true
+          },
+          "remark-math": {
+            "importPath": "remark-math",
+            "imports": ["remarkMath"],
+            "required": true
+          }
+        }
+      },
+      "BlockPlaceholderKit": {
+        "source": "plugins/block-placeholder-kit.tsx",
+        "dependencies": {
+          "platejs": {
+            "importPath": "platejs",
+            "imports": ["KEYS"],
+            "required": true
+          },
+          "platejs-react": {
+            "importPath": "platejs/react",
+            "imports": ["BlockPlaceholderPlugin"],
+            "required": true
+          }
+        }
+      },
+      "FixedToolbarKit": {
+        "source": "plugins/fixed-toolbar-kit.tsx",
+        "dependencies": {
+          "platejs-react": {
+            "importPath": "platejs/react",
+            "imports": ["createPlatePlugin"],
+            "required": true
+          }
+        }
+      },
+      "FloatingToolbarKit": {
+        "source": "plugins/floating-toolbar-kit.tsx",
+        "dependencies": {
+          "platejs-react": {
+            "importPath": "platejs/react",
+            "imports": ["createPlatePlugin"],
+            "required": true
+          }
+        }
+      }
+    }
+  },
+  "allNpmDependencies": {
+    "production": {
+      "@ai-sdk/gateway": "^3.0.84",
+      "@ai-sdk/react": "3",
+      "@ariakit/react": "^0.4.24",
+      "@emoji-mart/data": "1.2.1",
+      "@faker-js/faker": "^10.4.0",
+      "@platejs/ai": "^52.3.22",
+      "@platejs/autoformat": "^52.3.10",
+      "@platejs/basic-nodes": "^52.3.10",
+      "@platejs/basic-styles": "^52.3.10",
+      "@platejs/callout": "^52.3.10",
+      "@platejs/caption": "^52.3.10",
+      "@platejs/code-block": "^52.3.16",
+      "@platejs/code-drawing": "^52.3.10",
+      "@platejs/combobox": "^52.3.10",
+      "@platejs/comment": "^52.3.10",
+      "@platejs/date": "^52.3.10",
+      "@platejs/dnd": "^52.3.16",
+      "@platejs/docx": "^52.3.10",
+      "@platejs/docx-io": "^52.3.10",
+      "@platejs/emoji": "^52.3.10",
+      "@platejs/excalidraw": "^52.3.10",
+      "@platejs/floating": "^52.3.10",
+      "@platejs/indent": "^52.3.10",
+      "@platejs/juice": "^52.3.10",
+      "@platejs/layout": "^52.3.10",
+      "@platejs/link": "^52.3.17",
+      "@platejs/list": "^52.3.10",
+      "@platejs/markdown": "^52.3.22",
+      "@platejs/math": "^52.3.10",
+      "@platejs/media": "^52.3.10",
+      "@platejs/mention": "^52.3.10",
+      "@platejs/resizable": "^52.3.10",
+      "@platejs/selection": "^52.3.10",
+      "@platejs/slash-command": "^52.3.10",
+      "@platejs/suggestion": "^52.3.10",
+      "@platejs/table": "^52.3.20",
+      "@platejs/toc": "^52.3.10",
+      "@platejs/toggle": "^52.3.10",
+      "@radix-ui/react-alert-dialog": "^1.1.15",
+      "@radix-ui/react-avatar": "^1.1.11",
+      "@radix-ui/react-checkbox": "^1.3.3",
+      "@radix-ui/react-context-menu": "^2.2.16",
+      "@radix-ui/react-dialog": "^1.1.15",
+      "@radix-ui/react-dropdown-menu": "^2.1.16",
+      "@radix-ui/react-popover": "^1.1.15",
+      "@radix-ui/react-separator": "^1.1.8",
+      "@radix-ui/react-slot": "^1.2.4",
+      "@radix-ui/react-toolbar": "^1.1.11",
+      "@radix-ui/react-tooltip": "^1.2.8",
+      "@udecode/cn": "^52.3.4",
+      "@uploadthing/react": "7.3.3",
+      "ai": "6",
+      "class-variance-authority": "^0.7.1",
+      "clsx": "^2.1.1",
+      "cmdk": "^1.1.1",
+      "date-fns": "^4.1.0",
+      "dedent": "1.0.0",
+      "html2canvas-pro": "^2.0.2",
+      "lodash": "^4.18.1",
+      "lowlight": "^3.3.0",
+      "lucide-react": "^1.7.0",
+      "next": "16.2.2",
+      "pdf-lib": "^1.17.1",
+      "platejs": "^52.3.21",
+      "radix-ui": "^1.4.3",
+      "react": "19.2.4",
+      "react-day-picker": "^9.14.0",
+      "react-dnd": "^16.0.1",
+      "react-dnd-html5-backend": "^16.0.1",
+      "react-dom": "19.2.4",
+      "react-lite-youtube-embed": "^3.5.1",
+      "react-player": "3.3.1",
+      "react-textarea-autosize": "^8.5.9",
+      "react-tweet": "^3.3.0",
+      "remark-gfm": "^4.0.1",
+      "remark-math": "^6.0.0",
+      "sonner": "^2.0.7",
+      "tailwind-merge": "^3.5.0",
+      "tailwind-scrollbar-hide": "^4.0.0",
+      "tw-animate-css": "^1.4.0",
+      "uploadthing": "7.7.4",
+      "use-file-picker": "2.1.2",
+      "zod": "^4.3.6"
+    },
+    "dev": {
+      "@biomejs/biome": "2.4.10",
+      "@tailwindcss/postcss": "4.2.2",
+      "@types/node": "^25.5.0",
+      "@types/react": "19.2.14",
+      "@types/react-dom": "19.2.3",
+      "@typescript-eslint/parser": "^8.58.0",
+      "babel-plugin-react-compiler": "^1.0.0",
+      "eslint": "^10.1.0",
+      "eslint-plugin-react-hooks": "7.0.1",
+      "lefthook": "^2.1.4",
+      "postcss": "^8.5.8",
+      "tailwindcss": "4.2.2",
+      "typescript": "6.0.2",
+      "ultracite": "7.4.2"
+    }
+  }
+}
