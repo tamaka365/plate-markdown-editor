@@ -6,6 +6,7 @@
   "types": "./index.ts",
   "scripts": {
     "sync-deps": "node scripts/sync-deps.js",
+    "clone-submodule": "git submodule update --init",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
