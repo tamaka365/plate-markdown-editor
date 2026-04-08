@@ -2,12 +2,16 @@
   "name": "plate-markdown-editor",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./index.ts",
+  "types": "./index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@10.30.3"
+  "packageManager": "pnpm@10.30.3",
+  "dependencies": {
+    "platejs": "^52.3.21"
+  }
 }
