@@ -1,0 +1,3 @@
+[submodule "plate-playground-template"]
+	path = plate-playground-template
+	url = https://github.com/udecode/plate-playground-template
